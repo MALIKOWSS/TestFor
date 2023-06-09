@@ -39,7 +39,7 @@ data class ResponseUI(
     @SerializedName("movie_banner")
     val movieBanner: String = "",
 )
-fun Response.toDomain(): ResponseUI = ResponseUI(
+fun Response.toUI(): ResponseUI = ResponseUI(
     image,
     originalTitle,
     director,

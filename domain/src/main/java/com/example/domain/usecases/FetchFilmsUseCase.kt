@@ -10,5 +10,5 @@ class FetchFilmsUseCase @Inject constructor(
     private val repository: FilmsRepository,
 ) {
 
-    suspend operator fun invoke(): Flow<Either<String, Response>> = repository.fetchFilms()
+    suspend operator fun invoke(): Flow<Either<String, List<Response>>> = repository.fetchFilms()
 }
