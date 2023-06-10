@@ -1,4 +1,4 @@
-package com.example.presentation.ui.fragments
+package com.example.presentation.ui.fragments.films
 
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.FetchFilmsUseCase

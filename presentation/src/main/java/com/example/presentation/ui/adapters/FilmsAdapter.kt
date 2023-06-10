@@ -8,42 +8,50 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.presentation.databinding.ItemNameBinding
 import com.example.presentation.models.ResponseUI
 
-class FilmsAdapter :
-    ListAdapter<ResponseUI, FilmsAdapter.ViewHolder>(
-        diffUtil
-    ) {
+class FilmsAdapter(private val onClickListener: (id: String) -> Unit) :
+    ListAdapter<ResponseUI, FilmsAdapter.DetailFilmsViewHolder>(diffUtil) {
 
-    inner class ViewHolder(private val binding: ItemNameBinding) :
+    inner class DetailFilmsViewHolder(private val binding: ItemNameBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(item: ResponseUI) {
-            binding.title.text = item.title
-            binding.originalTitle.text = item.originalTitle
+
+        fun onBind(model: ResponseUI) {
+            binding.originalTitle.text = model.originalTitle
+            binding.title.text = model.title
+        }
+
+        init {
+            itemView.setOnClickListener {
+                getItem(bindingAdapterPosition)?.apply { onClickListener(id) }
+            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            ItemNameBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): FilmsAdapter.DetailFilmsViewHolder = DetailFilmsViewHolder(
+        ItemNameBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
         )
-    }
+    )
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.onBind(it)
-        }
+    override fun onBindViewHolder(holder: FilmsAdapter.DetailFilmsViewHolder, position: Int) {
+        holder.onBind(getItem(position))
     }
 
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<ResponseUI>() {
-            override fun areItemsTheSame(oldItem: ResponseUI, newItem: ResponseUI): Boolean {
-                return oldItem == newItem
+            override fun areItemsTheSame(
+                oldItem: ResponseUI,
+                newItem: ResponseUI
+            ): Boolean {
+                return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: ResponseUI, newItem: ResponseUI): Boolean {
+            override fun areContentsTheSame(
+                oldItem: ResponseUI,
+                newItem: ResponseUI
+            ): Boolean {
                 return oldItem == newItem
             }
         }

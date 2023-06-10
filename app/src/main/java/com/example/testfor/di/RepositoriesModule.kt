@@ -1,6 +1,8 @@
 package com.example.testfor.di
 
+import com.example.data.repositories.DetailFilmRepositoryImpl
 import com.example.data.repositories.FilmsRepositoryImpl
+import com.example.domain.repositories.DetailFilmRepository
 import com.example.domain.repositories.FilmsRepository
 import dagger.Binds
 import dagger.Module
@@ -12,5 +14,8 @@ import dagger.hilt.components.SingletonComponent
 interface RepositoriesModule {
 
     @Binds
-    fun bindAnimeRepository(filmsRepositoryImpl: FilmsRepositoryImpl): FilmsRepository
+    fun bindFilmsRepository(filmsRepositoryImpl: FilmsRepositoryImpl): FilmsRepository
+
+    @Binds
+    fun bindDetailFilmsRepository(detailFilmRepositoryImpl: DetailFilmRepositoryImpl): DetailFilmRepository
 }

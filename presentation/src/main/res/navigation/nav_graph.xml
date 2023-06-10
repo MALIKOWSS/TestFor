@@ -2,12 +2,27 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph.xml"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/filmsFragment">
+
 
     <fragment
         android:id="@+id/filmsFragment"
-        android:name="com.example.presentation.ui.fragments.FilmsFragment"
+        android:name="com.example.presentation.ui.fragments.films.FilmsFragment"
         android:label="fragment_films"
-        tools:layout="@layout/fragment_films" />
+        tools:layout="@layout/fragment_films" >
+        <action
+            android:id="@+id/action_filmsFragment_to_detailFilmsFragment"
+            app:destination="@id/detailFilmsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFilmsFragment"
+        android:name="com.example.presentation.ui.fragments.films.detail.DetailFilmsFragment"
+        android:label="fragment_detail_films"
+        tools:layout="@layout/fragment_detail_films" >
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
